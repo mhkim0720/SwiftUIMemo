@@ -15,28 +15,30 @@ struct MainListView: View {
     
     var body: some View {
         NavigationView{
-            List(store.list) { memo in
-                
-                NavigationLink{
-                     DetailView(memo: memo)
-                } label: {
-                    MemoCell(memo: memo)
+             List{
+                ForEach(store.list) { memo in
+                    
+                    NavigationLink{
+                         DetailView(memo: memo)
+                    } label: {
+                        MemoCell(memo: memo)
+                    }
+                    //Text(memo.content)
                 }
-                //Text(memo.content)
+                .onDelete(perform: store.delete)
             }
-            .listStyle(.plain)
-            .navigationTitle("My Memo")
-            .toolbar {
-                Button {
-                    showComposer = true
-                } label: {
-                    Image(systemName: "plus")
-                }
-            }
-            .sheet(isPresented: $showComposer){
-                ComposeView()
-            }
-        }
+             .listStyle(.plain)
+             .navigationTitle("My Memo")
+             .toolbar {
+                 Button {
+                     showComposer = true
+                 } label: {
+                     Image(systemName: "plus")
+                 }
+             }
+             .sheet(isPresented: $showComposer){
+                 ComposeView()
+         }        }
         
         //Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
